@@ -1,0 +1,48 @@
+project.ext {
+    support_version = '27.1.1'
+    dagger_version = '2.11'
+    retrofit_version = '2.3.0'
+    retrofit_log_version = '3.8.1'
+    constraint_layout_version = '1.1.0'
+    architecture_components_version = '1.1.1'
+    room_database_version = '1.0.0'
+    rx_kotlin_version = '2.1.0'
+    rx_android_version = '2.0.1'
+
+    junit_version = '4.12'
+    mockk_version = '1.7'
+    test_runner_version = '1.0.2'
+    espresso_version = '3.0.2'
+}
+
+buildscript {
+    ext {
+        gradle_version = '3.1.2'
+        kotlin_version = '1.2.10'
+        detekt_version = '1.0.0.RC6-4'
+    }
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' }
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradle_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "gradle.plugin.io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' }
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+apply from: "${rootDir}/gradle/analysis.gradle"
