@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+apply from: "${rootDir}/environment/environment.gradle"
+
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
@@ -22,11 +24,31 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            storeFile file("../environment/release-keystore.jks")
+            storePassword environment.getValue("RELEASE_SIGNING_STORE_PASSWORD")
+            keyAlias environment.getValue("RELEASE_SIGNING_KEY_ALIAS")
+            keyPassword environment.getValue("RELEASE_SIGNING_KEY_PASSWORD")
+        }
+    }
+
     buildTypes {
+        base {
+            buildConfigField "String", "REMOTE_SUBDOMAIN", environment.getValueForBuildConfig("REMOTE_SUBDOMAIN")
+            buildConfigField "String", "REMOTE_USERNAME", environment.getValueForBuildConfig("REMOTE_USERNAME")
+            buildConfigField "String", "REMOTE_PASSWORD", environment.getValueForBuildConfig("REMOTE_PASSWORD")
+        }
         debug {
+            initWith buildTypes.base
+            signingConfig signingConfigs.debug
+
             applicationIdSuffix ".debug"
         }
         release {
+            initWith buildTypes.base
+            signingConfig signingConfigs.release
+
             zipAlignEnabled true
             debuggable false
             minifyEnabled true

@@ -16,11 +16,6 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
-    companion object {
-        private const val USERNAME = "acooke+techtest@zendesk.com"
-        private const val PASSWORD = "mobile"
-    }
-
     @Provides
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
@@ -30,7 +25,7 @@ class NetworkModule {
         val builder = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .authenticator { _, response ->
-                    val credential = Credentials.basic(USERNAME, PASSWORD)
+                    val credential = Credentials.basic(BuildConfig.REMOTE_USERNAME, BuildConfig.REMOTE_PASSWORD)
                     response.request()?.newBuilder()?.header("Authorization", credential)?.build()
                 }
 
@@ -41,7 +36,7 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-                .baseUrl("https://mxtechtest.zendesk.com/")
+                .baseUrl("https://${BuildConfig.REMOTE_SUBDOMAIN}.zendesk.com/")
                 .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)

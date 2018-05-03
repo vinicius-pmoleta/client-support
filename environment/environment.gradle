@@ -1,0 +1,25 @@
+def getValue(key) {
+    def value = lookForSystemKey(key)
+    return value ? value : lookForPropertyKey(key)
+}
+
+private def lookForSystemKey(key) {
+    def systemValue = System.getenv(key)
+    return systemValue ? systemValue : null
+}
+
+private def lookForPropertyKey(key) {
+    def props = new Properties()
+    file("../environment/private.properties").withInputStream { props.load(it) }
+    return props.get(key)
+}
+
+def getValueForBuildConfig(key) {
+    def value = getValue(key)
+    return "\"$value\""
+}
+
+project.ext.environment = {
+    getValue = this.&getValue
+    getValueForBuildConfig = this.&getValueForBuildConfig
+}
