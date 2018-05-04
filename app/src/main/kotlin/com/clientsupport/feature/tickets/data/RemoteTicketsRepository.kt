@@ -13,9 +13,11 @@ class RemoteTicketsRepository(
 
     fun getTicketsForView(viewId: Long): Flowable<List<Ticket>> {
         return externalApi.getTicketsForView(viewId)
-                .flatMap { response -> Flowable.fromIterable(response.tickets) }
-                .map { response -> converter.fromRemote(response) }
-                .toList()
-                .toFlowable()
+                .flatMap { ticketsResponse ->
+                    Flowable.fromIterable(ticketsResponse.tickets)
+                            .map { ticketResponse -> converter.fromRemote(ticketResponse) }
+                            .toList()
+                            .toFlowable()
+                }
     }
 }
