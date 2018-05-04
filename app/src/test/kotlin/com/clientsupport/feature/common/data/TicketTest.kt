@@ -1,5 +1,6 @@
 package com.clientsupport.feature.common.data
 
+import com.clientsupport.feature.common.data.model.Status
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.clientsupport.feature.common.data
+package com.clientsupport.feature.common.data.model
 
 data class Ticket(
         val id: Long,
@@ -6,7 +6,7 @@ data class Ticket(
         val description: String,
         val status: Status,
         var createdAt: String,
-        var updateAt: String
+        var updatedAt: String
 )
 
 enum class Status {
@@ -18,7 +18,7 @@ enum class Status {
             return try {
                 Status.valueOf(value.toUpperCase())
             } catch (e: IllegalArgumentException) {
-                Status.UNKNOWN
+                UNKNOWN
             }
         }
     }

@@ -2,7 +2,7 @@ package com.clientsupport.core.di.component
 
 import com.clientsupport.core.ClientSupportApplication
 import com.clientsupport.core.data.repository.local.ClientSupportDatabase
-import com.clientsupport.core.data.repository.remote.RemoteClientSupportRepository
+import com.clientsupport.core.data.repository.remote.ClientSupportExternalApi
 import com.clientsupport.core.di.module.ApplicationModule
 import com.clientsupport.core.di.module.LocalRepositoryModule
 import com.clientsupport.core.di.module.NetworkModule
@@ -19,7 +19,7 @@ interface ApplicationComponent {
 
     fun application(): ClientSupportApplication
 
-    fun remoteRepository(): RemoteClientSupportRepository
+    fun externalApi(): ClientSupportExternalApi
 
     fun database(): ClientSupportDatabase
 

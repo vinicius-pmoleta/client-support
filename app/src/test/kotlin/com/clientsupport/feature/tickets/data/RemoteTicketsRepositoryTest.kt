@@ -1,21 +1,22 @@
 package com.clientsupport.feature.tickets.data
 
-import com.clientsupport.core.data.repository.remote.RemoteClientSupportRepository
+import com.clientsupport.core.data.repository.remote.ClientSupportExternalApi
 import com.clientsupport.core.data.repository.remote.TicketResponse
 import com.clientsupport.core.data.repository.remote.TicketsResponse
-import com.clientsupport.feature.common.data.Status
-import com.clientsupport.feature.common.data.Ticket
+import com.clientsupport.feature.common.data.converter.TicketConverter
+import com.clientsupport.feature.common.data.model.Status
+import com.clientsupport.feature.common.data.model.Ticket
 import io.mockk.every
 import io.mockk.mockk
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import org.junit.Test
 import java.io.IOException
 
 class RemoteTicketsRepositoryTest {
 
-    private val remoteExternalRepository = mockk<RemoteClientSupportRepository>(relaxed = true)
+    private val externalApi = mockk<ClientSupportExternalApi>(relaxed = true)
 
-    private val remoteRepository = RemoteTicketsRepository(remoteExternalRepository, RemoteTicketConverter())
+    private val remoteRepository = RemoteTicketsRepository(externalApi, TicketConverter())
 
     @Test
     fun `when received external response then verify conversion to business model`() {
@@ -27,8 +28,8 @@ class RemoteTicketsRepositoryTest {
         )
 
         every {
-            remoteExternalRepository.getTicketsForView(0)
-        } returns Observable.just(TicketsResponse(ticketsResponse))
+            externalApi.getTicketsForView(0)
+        } returns Flowable.just(TicketsResponse(ticketsResponse))
 
         remoteRepository.getTicketsForView(0)
                 .test()
@@ -45,8 +46,8 @@ class RemoteTicketsRepositoryTest {
     fun `when received external error then verify conversion failed`() {
         val error = IOException()
         every {
-            remoteExternalRepository.getTicketsForView(0)
-        } returns Observable.error(error)
+            externalApi.getTicketsForView(0)
+        } returns Flowable.error(error)
 
         remoteRepository.getTicketsForView(0)
                 .test()

@@ -7,16 +7,23 @@ import io.reactivex.schedulers.Schedulers
 
 class TicketsPresenter(
         private val view: TicketsContract.View,
-        private val business: TicketsBusiness
-) : TicketsContract.Action {
+        private val business: TicketsBusiness) : TicketsContract.Action {
 
     override fun loadTicketsForView(viewId: Long) {
         business.fetchTicketsForView(viewId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> Log.d("Test", result.toString()) },
-                        { error -> Log.e("Test", "Error", error) }
+                        { result -> Log.d("REMOTE", result.toString()) },
+                        { error -> Log.e("REMOTE", "Error", error) }
+                )
+
+        business.loadTicketsForView()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { result -> Log.d("LOCAL", result.toString()) },
+                        { error -> Log.e("LOCAL", "Error", error) }
                 )
     }
 }

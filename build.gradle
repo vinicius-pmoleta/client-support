@@ -10,7 +10,7 @@ project.ext {
     rx_android_version = '2.0.1'
 
     junit_version = '4.12'
-    mockk_version = '1.7'
+    mockk_version = '1.7.15'
     test_runner_version = '1.0.2'
     espresso_version = '3.0.2'
 }

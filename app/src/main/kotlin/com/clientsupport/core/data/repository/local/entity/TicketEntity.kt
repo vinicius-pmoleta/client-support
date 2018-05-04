@@ -10,7 +10,6 @@ data class TicketEntity(
         @ColumnInfo var subject: String,
         @ColumnInfo var description: String,
         @ColumnInfo var status: String,
-        @ColumnInfo var type: String,
         @ColumnInfo var createdAt: String,
         @ColumnInfo var updatedAt: String
 )

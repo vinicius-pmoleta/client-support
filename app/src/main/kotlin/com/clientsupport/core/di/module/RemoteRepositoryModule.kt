@@ -1,6 +1,6 @@
 package com.clientsupport.core.di.module
 
-import com.clientsupport.core.data.repository.remote.RemoteClientSupportRepository
+import com.clientsupport.core.data.repository.remote.ClientSupportExternalApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -11,7 +11,7 @@ class RemoteRepositoryModule {
 
     @Provides
     @Singleton
-    fun provideRemoteRepository(retrofit: Retrofit): RemoteClientSupportRepository {
-        return retrofit.create(RemoteClientSupportRepository::class.java)
+    fun provideExternalApi(retrofit: Retrofit): ClientSupportExternalApi {
+        return retrofit.create(ClientSupportExternalApi::class.java)
     }
 }
