@@ -4,7 +4,7 @@ import com.clientsupport.feature.common.data.model.Status
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class TicketTest {
+class TicketModelTest {
 
     @Test
     fun `when status value in lower case is found then return equivalent status`() {

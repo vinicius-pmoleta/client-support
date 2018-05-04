@@ -31,7 +31,7 @@ class RemoteTicketsRepositoryTest {
             externalApi.getTicketsForView(0)
         } returns Flowable.just(TicketsResponse(ticketsResponse))
 
-        remoteRepository.getTicketsForView(0)
+        remoteRepository.fetchTicketsForView(0)
                 .test()
                 .assertNoErrors()
                 .assertValue(listOf(
@@ -49,7 +49,7 @@ class RemoteTicketsRepositoryTest {
             externalApi.getTicketsForView(0)
         } returns Flowable.error(error)
 
-        remoteRepository.getTicketsForView(0)
+        remoteRepository.fetchTicketsForView(0)
                 .test()
                 .assertError(error)
     }

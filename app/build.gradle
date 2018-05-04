@@ -39,6 +39,8 @@ android {
             buildConfigField "String", "REMOTE_USERNAME", environment.getValueForBuildConfig("REMOTE_USERNAME")
             buildConfigField "String", "REMOTE_PASSWORD", environment.getValueForBuildConfig("REMOTE_PASSWORD")
             buildConfigField "long", "REMOTE_VIEW_ID", environment.getValue("REMOTE_VIEW_ID")
+
+            debuggable true
         }
         debug {
             initWith buildTypes.base

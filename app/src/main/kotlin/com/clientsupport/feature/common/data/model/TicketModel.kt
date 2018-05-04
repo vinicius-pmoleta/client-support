@@ -9,6 +9,11 @@ data class Ticket(
         var updatedAt: String
 )
 
+data class TicketResult(
+        val data: List<Ticket>? = null,
+        val error: Throwable? = null
+)
+
 enum class Status {
 
     NEW, OPEN, PENDING, HOLD, SOLVED, CLOSED, UNKNOWN;

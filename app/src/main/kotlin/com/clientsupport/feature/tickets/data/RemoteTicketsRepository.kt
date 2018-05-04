@@ -11,7 +11,7 @@ class RemoteTicketsRepository(
         private val externalApi: ClientSupportExternalApi,
         private val converter: TicketConverter) {
 
-    fun getTicketsForView(viewId: Long): Flowable<List<Ticket>> {
+    fun fetchTicketsForView(viewId: Long): Flowable<List<Ticket>> {
         return externalApi.getTicketsForView(viewId)
                 .flatMap { ticketsResponse ->
                     Flowable.fromIterable(ticketsResponse.tickets)

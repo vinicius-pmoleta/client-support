@@ -13,6 +13,6 @@ interface TicketDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTickets(tickets: List<TicketEntity>)
 
-    @Query("SELECT * FROM ticket ORDER BY createdAt DESC")
+    @Query("SELECT * FROM ticket ORDER BY updatedAt DESC")
     fun queryAllTickets(): Flowable<List<TicketEntity>>
 }
