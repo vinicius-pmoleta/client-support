@@ -3,7 +3,8 @@ package com.clientsupport.feature.tickets.presentation
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveDataReactiveStreams
 import android.arch.lifecycle.Observer
-import com.clientsupport.core.rx.IOTransformer
+import com.clientsupport.core.rx.ExecutionConfiguration
+import com.clientsupport.core.rx.ExecutionTransformer
 import com.clientsupport.feature.common.data.model.Ticket
 import com.clientsupport.feature.common.data.model.TicketResult
 import com.clientsupport.feature.tickets.business.TicketsBusiness
@@ -14,12 +15,13 @@ class TicketsPresenter(
         private val owner: LifecycleOwner,
         private val ticketsDataHolder: TicketsDataHolder,
         private val converter: TicketScreenConverter,
+        private val configuration: ExecutionConfiguration,
         private val business: TicketsBusiness) : TicketsContract.Action {
 
     override fun loadTicketsForView(viewId: Long) {
         view.displayProgress()
         ticketsDataHolder.result?.value?.let {
-            handleTicketsResult(it)
+            handleLoadTicketsResult(it)
         } ?: run {
             loadLocalTickets()
             refreshTickets(viewId)
@@ -29,22 +31,22 @@ class TicketsPresenter(
     private fun loadLocalTickets() {
         val result = LiveDataReactiveStreams.fromPublisher(
                 business.loadAllLocalTickets()
-                        .compose(IOTransformer())
+                        .compose(ExecutionTransformer(configuration))
         )
 
         ticketsDataHolder.result = result
         result.observe(owner, Observer {
-            handleTicketsResult(it)
+            handleLoadTicketsResult(it)
         })
     }
 
     override fun refreshTickets(viewId: Long) {
         business.updateTicketsForView(viewId)
-                .compose(IOTransformer())
-                .subscribe({ result -> handleTicketsUpdate(result) }, { _ -> handleError() })
+                .compose(ExecutionTransformer(configuration))
+                .subscribe({ result -> handleUpdateTicketsResult(result) }, { _ -> handleError() })
     }
 
-    private fun handleTicketsResult(result: TicketResult?) {
+    internal fun handleLoadTicketsResult(result: TicketResult?) {
         result?.data?.let {
             handleData(it)
         }
@@ -54,7 +56,7 @@ class TicketsPresenter(
         view.hideProgress()
     }
 
-    private fun handleTicketsUpdate(result: TicketResult?) {
+    internal fun handleUpdateTicketsResult(result: TicketResult?) {
         result?.error?.let {
             handleError()
         }
@@ -65,7 +67,7 @@ class TicketsPresenter(
         view.showError()
     }
 
-    private fun handleData(tickets: List<Ticket>) {
+    internal fun handleData(tickets: List<Ticket>) {
         view.showTickets(tickets.map { ticket -> converter.toScreenModel(ticket) })
     }
 }
