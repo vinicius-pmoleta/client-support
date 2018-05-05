@@ -7,6 +7,8 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.view.ViewGroup
 import com.clientsupport.BuildConfig
 import com.clientsupport.R
 import com.clientsupport.core.ClientSupportApplication
@@ -16,10 +18,10 @@ import com.clientsupport.feature.tickets.di.TicketsFeatureModule
 import com.clientsupport.feature.tickets.presentation.adapter.TicketsAdapter
 import com.clientsupport.feature.tickets.presentation.model.TicketScreenModel
 
-
 class TicketsActivity : BaseActivity<TicketsPresenter>(), TicketsContract.View {
 
     private val pullToRefreshView by lazy { findViewById<SwipeRefreshLayout>(R.id.ticketsPullToRefresh) }
+    private val emptyView by lazy { findViewById<ViewGroup>(R.id.ticketsEmpty) }
     private var ticketsAdapter = TicketsAdapter()
 
     override fun injectDependencies() {
@@ -46,6 +48,14 @@ class TicketsActivity : BaseActivity<TicketsPresenter>(), TicketsContract.View {
 
     override fun hideProgress() {
         pullToRefreshView.isRefreshing = false
+    }
+
+    override fun hideEmptyState() {
+        emptyView.visibility = View.GONE
+    }
+
+    override fun showEmptyState() {
+        emptyView.visibility = View.VISIBLE
     }
 
     override fun showTickets(tickets: List<TicketScreenModel>) {

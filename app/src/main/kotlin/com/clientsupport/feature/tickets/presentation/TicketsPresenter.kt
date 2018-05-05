@@ -68,6 +68,11 @@ class TicketsPresenter(
     }
 
     internal fun handleData(tickets: List<Ticket>) {
+        if (tickets.isNotEmpty()) {
+            view.hideEmptyState()
+        } else {
+            view.showEmptyState()
+        }
         view.showTickets(tickets.map { ticket -> converter.toScreenModel(ticket) })
     }
 }

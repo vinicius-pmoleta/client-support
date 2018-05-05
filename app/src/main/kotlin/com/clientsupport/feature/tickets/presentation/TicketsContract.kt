@@ -10,8 +10,14 @@ interface TicketsContract {
         fun displayProgress()
 
         fun hideProgress()
+
         fun showTickets(tickets: List<TicketScreenModel>)
+
         fun showError()
+
+        fun hideEmptyState()
+
+        fun showEmptyState()
     }
 
     interface Action : BaseContract.Action {

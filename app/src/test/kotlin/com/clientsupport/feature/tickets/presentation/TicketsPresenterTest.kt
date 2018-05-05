@@ -45,7 +45,16 @@ class TicketsPresenterTest {
 
         presenter.handleData(listOf(ticket1, ticket2))
 
+        verify(exactly = 1) { view.hideEmptyState() }
         verify(exactly = 1) { view.showTickets(listOf(screen1, screen2)) }
+    }
+
+    @Test
+    fun `when tickets data is received empty then ask view to show it`() {
+        presenter.handleData(emptyList())
+
+        verify(exactly = 1) { view.showEmptyState() }
+        verify(exactly = 1) { view.showTickets(emptyList()) }
     }
 
     @Test
