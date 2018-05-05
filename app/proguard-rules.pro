@@ -19,3 +19,16 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# OkHttp3
+-dontwarn okio.**
+-dontwarn okhttp3.**
+
+# Retrofit2
+-dontwarn retrofit2.**
+
+# Joda-Time
+-dontwarn org.joda.convert.**
+-dontwarn org.joda.time.**
+-keep class org.joda.time.** { *; }
+-keep interface org.joda.time.** { *;}
