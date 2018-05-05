@@ -3,7 +3,7 @@ package com.clientsupport.feature.tickets.data
 import com.clientsupport.core.data.repository.remote.ClientSupportExternalApi
 import com.clientsupport.core.data.repository.remote.TicketResponse
 import com.clientsupport.core.data.repository.remote.TicketsResponse
-import com.clientsupport.feature.common.data.converter.TicketConverter
+import com.clientsupport.feature.common.data.converter.TicketRepositoryConverter
 import com.clientsupport.feature.common.data.model.Status
 import com.clientsupport.feature.common.data.model.Ticket
 import io.mockk.every
@@ -16,7 +16,7 @@ class RemoteTicketsRepositoryTest {
 
     private val externalApi = mockk<ClientSupportExternalApi>(relaxed = true)
 
-    private val remoteRepository = RemoteTicketsRepository(externalApi, TicketConverter())
+    private val remoteRepository = RemoteTicketsRepository(externalApi, TicketRepositoryConverter())
 
     @Test
     fun `when received external response then verify conversion to business model`() {

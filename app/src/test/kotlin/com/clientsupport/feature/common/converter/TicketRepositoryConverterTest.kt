@@ -2,15 +2,15 @@ package com.clientsupport.feature.common.converter
 
 import com.clientsupport.core.data.repository.local.entity.TicketEntity
 import com.clientsupport.core.data.repository.remote.TicketResponse
-import com.clientsupport.feature.common.data.converter.TicketConverter
+import com.clientsupport.feature.common.data.converter.TicketRepositoryConverter
 import com.clientsupport.feature.common.data.model.Status
 import com.clientsupport.feature.common.data.model.Ticket
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class TicketConverterTest {
+class TicketRepositoryConverterTest {
 
-    private val converter = TicketConverter()
+    private val converter = TicketRepositoryConverter()
 
     @Test
     fun `when response goes to business layer then verify conversion to model`() {

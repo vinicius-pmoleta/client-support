@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import com.clientsupport.core.data.repository.local.ClientSupportDatabase
 import com.clientsupport.core.data.repository.remote.ClientSupportExternalApi
 import com.clientsupport.core.di.FeatureScope
-import com.clientsupport.feature.common.data.converter.TicketConverter
+import com.clientsupport.feature.common.data.converter.TicketRepositoryConverter
 import com.clientsupport.feature.tickets.business.TicketsBusiness
 import com.clientsupport.feature.tickets.data.LocalTicketsRepository
 import com.clientsupport.feature.tickets.data.RemoteTicketsRepository
@@ -13,6 +13,7 @@ import com.clientsupport.feature.tickets.presentation.TicketsActivity
 import com.clientsupport.feature.tickets.presentation.TicketsContract
 import com.clientsupport.feature.tickets.presentation.TicketsDataHolder
 import com.clientsupport.feature.tickets.presentation.TicketsPresenter
+import com.clientsupport.feature.tickets.presentation.model.TicketScreenConverter
 import dagger.Module
 import dagger.Provides
 
@@ -39,11 +40,18 @@ class TicketsFeatureModule(private val activity: TicketsActivity) {
 
     @FeatureScope
     @Provides
+    fun provideScrenTicketConverter(): TicketScreenConverter {
+        return TicketScreenConverter(activity)
+    }
+
+    @FeatureScope
+    @Provides
     fun providePresenter(view: TicketsContract.View,
                          lifecycleOwner: LifecycleOwner,
                          ticketsDataHolder: TicketsDataHolder,
+                         converter: TicketScreenConverter,
                          business: TicketsBusiness): TicketsPresenter {
-        return TicketsPresenter(view, lifecycleOwner, ticketsDataHolder, business)
+        return TicketsPresenter(view, lifecycleOwner, ticketsDataHolder, converter, business)
     }
 
     @FeatureScope
@@ -56,20 +64,20 @@ class TicketsFeatureModule(private val activity: TicketsActivity) {
     @FeatureScope
     @Provides
     fun provideRemoteRepository(externalApi: ClientSupportExternalApi,
-                                converter: TicketConverter): RemoteTicketsRepository {
+                                converter: TicketRepositoryConverter): RemoteTicketsRepository {
         return RemoteTicketsRepository(externalApi, converter)
     }
 
     @FeatureScope
     @Provides
     fun provideLocalRepository(database: ClientSupportDatabase,
-                               converter: TicketConverter): LocalTicketsRepository {
+                               converter: TicketRepositoryConverter): LocalTicketsRepository {
         return LocalTicketsRepository(database.ticketDao(), converter)
     }
 
     @FeatureScope
     @Provides
-    fun provideTicketConverter(): TicketConverter {
-        return TicketConverter()
+    fun provideTicketrepositoryConverter(): TicketRepositoryConverter {
+        return TicketRepositoryConverter()
     }
 }

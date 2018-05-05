@@ -1,3 +1,10 @@
 <resources>
-  <string name="app_name">Client Support</string>
+
+    <string name="app_name">Client Support</string>
+
+    <!-- Ticket -->
+    <string name="tickets_generic_error">Sorry, we couldn\'t load your tickets</string>
+    <string name="tickets_id">#%d</string>
+    <string name="tickets_last_update">Last update: %s</string>
+
 </resources>

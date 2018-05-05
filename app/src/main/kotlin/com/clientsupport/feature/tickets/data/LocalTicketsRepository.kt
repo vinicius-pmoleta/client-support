@@ -1,7 +1,7 @@
 package com.clientsupport.feature.tickets.data
 
 import android.support.annotation.WorkerThread
-import com.clientsupport.feature.common.data.converter.TicketConverter
+import com.clientsupport.feature.common.data.converter.TicketRepositoryConverter
 import com.clientsupport.feature.common.data.model.Ticket
 import com.clientsupport.feature.common.data.repository.TicketDao
 import io.reactivex.Flowable
@@ -9,7 +9,7 @@ import io.reactivex.Flowable
 @WorkerThread
 class LocalTicketsRepository(
         private val ticketDao: TicketDao,
-        private val converter: TicketConverter) {
+        private val converter: TicketRepositoryConverter) {
 
     fun loadTickets(): Flowable<List<Ticket>> {
         return ticketDao.queryAllTickets()

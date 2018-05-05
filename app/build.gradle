@@ -121,6 +121,9 @@ dependencies {
     implementation "android.arch.persistence.room:rxjava2:$room_database_version"
     kapt "android.arch.persistence.room:compiler:$room_database_version"
 
+    // DATE AND TIME
+    implementation "joda-time:joda-time:$joda_time_version"
+
     // TEST
     testImplementation "junit:junit:$junit_version"
     testImplementation "io.mockk:mockk:$mockk_version"

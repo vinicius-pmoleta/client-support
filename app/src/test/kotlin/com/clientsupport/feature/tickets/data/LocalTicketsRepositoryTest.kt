@@ -1,7 +1,7 @@
 package com.clientsupport.feature.tickets.data
 
 import com.clientsupport.core.data.repository.local.entity.TicketEntity
-import com.clientsupport.feature.common.data.converter.TicketConverter
+import com.clientsupport.feature.common.data.converter.TicketRepositoryConverter
 import com.clientsupport.feature.common.data.model.Status
 import com.clientsupport.feature.common.data.model.Ticket
 import com.clientsupport.feature.common.data.repository.TicketDao
@@ -16,7 +16,7 @@ class LocalTicketsRepositoryTest {
 
     private val ticketDao = mockk<TicketDao>(relaxed = true)
 
-    private val localRepository = LocalTicketsRepository(ticketDao, TicketConverter())
+    private val localRepository = LocalTicketsRepository(ticketDao, TicketRepositoryConverter())
 
     @Test
     fun `when ticket entities available on database then return the equivalent models`() {

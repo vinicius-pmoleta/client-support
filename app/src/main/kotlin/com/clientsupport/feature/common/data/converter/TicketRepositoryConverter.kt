@@ -5,7 +5,7 @@ import com.clientsupport.core.data.repository.remote.TicketResponse
 import com.clientsupport.feature.common.data.model.Status
 import com.clientsupport.feature.common.data.model.Ticket
 
-class TicketConverter {
+class TicketRepositoryConverter {
 
     fun fromRemote(response: TicketResponse): Ticket {
         return Ticket(

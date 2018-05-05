@@ -3,44 +3,45 @@ package com.clientsupport.feature.tickets.presentation
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LiveDataReactiveStreams
 import android.arch.lifecycle.Observer
-import android.util.Log
-import com.clientsupport.core.rx.NetworkTransformer
+import com.clientsupport.core.rx.IOTransformer
 import com.clientsupport.feature.common.data.model.Ticket
 import com.clientsupport.feature.common.data.model.TicketResult
 import com.clientsupport.feature.tickets.business.TicketsBusiness
+import com.clientsupport.feature.tickets.presentation.model.TicketScreenConverter
 
 class TicketsPresenter(
         private val view: TicketsContract.View,
         private val owner: LifecycleOwner,
         private val ticketsDataHolder: TicketsDataHolder,
+        private val converter: TicketScreenConverter,
         private val business: TicketsBusiness) : TicketsContract.Action {
 
     override fun loadTicketsForView(viewId: Long) {
+        view.displayProgress()
         ticketsDataHolder.result?.value?.let {
             handleTicketsResult(it)
         } ?: run {
-            loadTickets(viewId)
+            loadLocalTickets()
+            refreshTickets(viewId)
         }
     }
 
-    private fun loadTickets(viewId: Long) {
+    private fun loadLocalTickets() {
         val result = LiveDataReactiveStreams.fromPublisher(
                 business.loadAllLocalTickets()
-                        .compose(NetworkTransformer())
+                        .compose(IOTransformer())
         )
 
         ticketsDataHolder.result = result
         result.observe(owner, Observer {
             handleTicketsResult(it)
         })
-
-        refreshTickets(viewId)
     }
 
-    private fun refreshTickets(viewId: Long) {
+    override fun refreshTickets(viewId: Long) {
         business.updateTicketsForView(viewId)
-                .compose(NetworkTransformer())
-                .subscribe({ }, { error -> handleError(error) })
+                .compose(IOTransformer())
+                .subscribe({ result -> handleTicketsUpdate(result) }, { _ -> handleError() })
     }
 
     private fun handleTicketsResult(result: TicketResult?) {
@@ -48,15 +49,23 @@ class TicketsPresenter(
             handleData(it)
         }
         result?.error?.let {
-            handleError(it)
+            handleError()
         }
+        view.hideProgress()
     }
 
-    private fun handleError(error: Throwable) {
-        Log.d("RESULT", "ERROR", error)
+    private fun handleTicketsUpdate(result: TicketResult?) {
+        result?.error?.let {
+            handleError()
+        }
+        view.hideProgress()
+    }
+
+    private fun handleError() {
+        view.showError()
     }
 
     private fun handleData(tickets: List<Ticket>) {
-        Log.d("RESULT", tickets.toString())
+        view.showTickets(tickets.map { ticket -> converter.toScreenModel(ticket) })
     }
 }
