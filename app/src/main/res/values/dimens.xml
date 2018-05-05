@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Spacing -->
+    <dimen name="appSpacing1">4dp</dimen>
+    <dimen name="appSpacing2">8dp</dimen>
+    <dimen name="appSpacing3">16dp</dimen>
+
+    <!-- Text Size -->
+    <dimen name="appTextSize1">12sp</dimen>
+    <dimen name="appTextSize2">14dp</dimen>
+    <dimen name="appTextSize3">18dp</dimen>
+
+</resources>

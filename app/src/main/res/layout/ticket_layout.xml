@@ -4,17 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="@dimen/appSpacing3">
 
     <TextView
         android:id="@+id/ticketSubject"
+        style="@style/Ticket.Subject"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:layout_marginEnd="@dimen/appSpacing2"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,12 +19,11 @@
 
     <TextView
         android:id="@+id/ticketDescription"
+        style="@style/Ticket.Description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:maxLines="4"
+        android:layout_marginEnd="@dimen/appSpacing2"
+        android:layout_marginTop="@dimen/appSpacing2"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ticketSubject"
@@ -35,11 +31,10 @@
 
     <TextView
         android:id="@+id/ticketId"
+        style="@style/Ticket.Id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textSize="14sp"
-        android:textStyle="italic"
+        android:layout_marginStart="@dimen/appSpacing2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -48,13 +43,11 @@
 
     <TextView
         android:id="@+id/ticketStatus"
+        style="@style/Ticket.Status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textAllCaps="true"
-        android:textSize="12sp"
-        android:textStyle="italic"
+        android:layout_marginStart="@dimen/appSpacing2"
+        android:layout_marginTop="@dimen/appSpacing2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -63,11 +56,11 @@
 
     <TextView
         android:id="@+id/ticketLastUpdate"
+        style="@style/Ticket.LastUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:textSize="10sp"
+        android:layout_marginStart="@dimen/appSpacing2"
+        android:layout_marginTop="@dimen/appSpacing2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
