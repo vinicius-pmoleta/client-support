@@ -22,6 +22,7 @@ class TicketsPresenter(
         view.displayProgress()
         ticketsDataHolder.result?.value?.let {
             handleLoadTicketsResult(it)
+            makeOwnerChangeAware()
         } ?: run {
             loadLocalTickets()
             refreshTickets(viewId)
@@ -35,7 +36,11 @@ class TicketsPresenter(
         )
 
         ticketsDataHolder.result = result
-        result.observe(owner, Observer {
+        makeOwnerChangeAware()
+    }
+
+    private fun makeOwnerChangeAware() {
+        ticketsDataHolder.result?.observe(owner, Observer {
             handleLoadTicketsResult(it)
         })
     }

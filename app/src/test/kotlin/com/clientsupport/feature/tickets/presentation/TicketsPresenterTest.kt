@@ -124,6 +124,7 @@ class TicketsPresenterTest {
 
         verify(exactly = 1) { view.displayProgress() }
         verify(exactly = 1) { view.showTickets(listOf(screen)) }
+        verify(exactly = 1) { live.observe(owner, any()) }
         verify(exactly = 0) { view.showError() }
         verify(exactly = 1) { view.hideProgress() }
     }
