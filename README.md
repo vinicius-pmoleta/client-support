@@ -33,7 +33,7 @@ This layer is formed by **repositories** that can get data from remote or local 
 ## Running the app
 
 The information you'll need to build and use the app are:
-* Client subdomain inside Zendesk system
+* Client subdomain inside Zendesk system (as in _subdomain_.zendesk.com)
 * Username
 * Password
 * View ID for filtering and fetching the tickets
