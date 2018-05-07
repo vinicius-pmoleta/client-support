@@ -1,12 +1,12 @@
 # Client Support App
 
-An Android app to simulate a client support system where the user can see support tickets from a client.
+A sample Android app to simulate a client support system where the user can see support tickets from a client.
 
 ## Architecture
 
 ### Overview
 
-This app was developed with concepts of MVP and Clean Architecture in mind. It also makes use of Android's Architecture Components (ViewModel, LiveData and Room) along side a reactive approach. These choices were made to allow a clear separation of concerns and the focus on unit testing.
+This app was developed with concepts of MVP and Clean Architecture in mind. It also makes use of Android's Architecture Components (ViewModel, LiveData and Room) alongside a reactive approach. These choices were made to allow a clear separation of concerns and the focus on unit testing.
 
 The idea was to develop an offline-first app, so the database is queried first and its results displayed if available while remote API fetches are triggered and stored in the database, which is being observed by the view to get the latest updates.
 

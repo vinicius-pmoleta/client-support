@@ -7,7 +7,7 @@ project.ext {
     architecture_components_version = '1.1.1'
     room_database_version = '1.0.0'
     rx_kotlin_version = '2.1.0'
-    rx_android_version = '2.0.1'
+    rx_android_version = '2.0.2'
     joda_time_version = '2.9.9'
 
     junit_version = '4.12'

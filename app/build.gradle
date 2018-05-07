@@ -41,8 +41,6 @@ android {
             buildConfigField "String", "REMOTE_USERNAME", environment.getValueForBuildConfig("REMOTE_USERNAME")
             buildConfigField "String", "REMOTE_PASSWORD", environment.getValueForBuildConfig("REMOTE_PASSWORD")
             buildConfigField "long", "REMOTE_VIEW_ID", environment.getValue("REMOTE_VIEW_ID")
-
-            debuggable true
         }
         debug {
             initWith buildTypes.base
@@ -54,9 +52,8 @@ android {
             initWith buildTypes.base
             signingConfig signingConfigs.release
 
-            zipAlignEnabled true
             debuggable false
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -65,6 +62,11 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
         androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     packagingOptions {
